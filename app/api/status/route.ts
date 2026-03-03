@@ -82,7 +82,14 @@ async function checkService(url: string): Promise<{ status: string; latency: num
   try {
     const controller = new AbortController()
     const timeout = setTimeout(() => controller.abort(), 8000)
-    const res = await fetch(url, { method: url.endsWith('/rpc') ? 'POST' : 'GET', signal: controller.signal, redirect: 'follow' })
+    const isRpc = url.endsWith('/rpc')
+    const res = await fetch(url, {
+      method: isRpc ? 'POST' : 'GET',
+      headers: isRpc ? { 'Content-Type': 'application/json' } : undefined,
+      body: isRpc ? JSON.stringify({ jsonrpc: '2.0', method: 'eth_chainId', params: [], id: 1 }) : undefined,
+      signal: controller.signal,
+      redirect: 'follow',
+    })
     clearTimeout(timeout)
     return { status: res.ok ? 'up' : 'degraded', latency: Date.now() - start }
   } catch {
