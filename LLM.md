@@ -1,2 +1,2 @@
-# status-web3 — AI Assistant Context
+# status-web3
 
