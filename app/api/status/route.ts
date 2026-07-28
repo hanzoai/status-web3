@@ -3,21 +3,20 @@ import { NextResponse } from 'next/server'
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
+// The network is chosen by host, never by a path segment, and every EVM answers
+// on the same path: /v1/bc/C/rpc. Hanzo is a sovereign L1 with its own gateway —
+// it is not reachable as a blockchain-ID path on api.lux.network any more.
+const RPC = '/v1/bc/C/rpc'
 const GATEWAY = {
-  mainnet: process.env.MAINNET_GATEWAY || 'https://api.lux.network/mainnet',
-  testnet: process.env.TESTNET_GATEWAY || 'https://api.lux.network/testnet',
-  devnet: process.env.DEVNET_GATEWAY || 'https://api.lux.network/devnet',
+  mainnet: process.env.MAINNET_GATEWAY || 'https://api.hanzo.network',
+  testnet: process.env.TESTNET_GATEWAY || 'https://api.hanzo-test.network',
+  devnet: process.env.DEVNET_GATEWAY || 'https://api.hanzo-dev.network',
 }
 
-// Hanzo subnet on Lux (v5 blockchain IDs, redeployed 2026-03-01)
 const CHAINS: Record<string, { name: string; path: Record<string, string>; chainId: Record<string, number> }> = {
   hanzo: {
     name: 'Hanzo',
-    path: {
-      mainnet: '/ext/bc/2GiQb73CeJESjc4omFv2YtQHZrRgJf25NXPzAr5J6UNHRcDV2F/rpc',
-      testnet: '/ext/bc/2wbYEFh7ELuovqXhyYeCLvweZrcEgNUoZVJUAtw145qTVAUJxE/rpc',
-      devnet: '/ext/bc/tecXMucYDxwN65mebPE6cvQ9GynG6Y5WEvwGFsY3xVDWHxiqT/rpc',
-    },
+    path: { mainnet: RPC, testnet: RPC, devnet: RPC },
     chainId: { mainnet: 36963, testnet: 36964, devnet: 36964 },
   },
 }
@@ -41,7 +40,7 @@ const SERVICES = [
   { name: 'App', url: 'https://hanzo.app' },
   // Blockchain
   { name: 'Explorer (Hanzo)', url: 'https://explore-hanzo.lux.network' },
-  { name: 'Hanzo RPC', url: 'https://api.lux.network/mainnet/ext/bc/2GiQb73CeJESjc4omFv2YtQHZrRgJf25NXPzAr5J6UNHRcDV2F/rpc' },
+  { name: 'Hanzo RPC', url: 'https://api.hanzo.network/v1/bc/C/rpc' },
 ]
 
 const CONTRACTS: Record<string, Record<string, { address: string; name: string }[]>> = {
