@@ -4,9 +4,9 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 // The network is chosen by host, never by a path segment, and every EVM answers
-// on the same path: /v1/bc/C/rpc. Hanzo is a sovereign L1 with its own gateway —
+// on the same path: /v1/chain/C/rpc. Hanzo is a sovereign L1 with its own gateway —
 // it is not reachable as a blockchain-ID path on api.lux.network any more.
-const RPC = '/v1/bc/C/rpc'
+const RPC = '/v1/chain/C/rpc'
 const GATEWAY = {
   mainnet: process.env.MAINNET_GATEWAY || 'https://api.hanzo.network',
   testnet: process.env.TESTNET_GATEWAY || 'https://api.hanzo-test.network',
@@ -40,7 +40,7 @@ const SERVICES = [
   { name: 'App', url: 'https://hanzo.app' },
   // Blockchain
   { name: 'Explorer (Hanzo)', url: 'https://explore-hanzo.lux.network' },
-  { name: 'Hanzo RPC', url: 'https://api.hanzo.network/v1/bc/C/rpc' },
+  { name: 'Hanzo RPC', url: 'https://api.hanzo.network/v1/chain/C/rpc' },
 ]
 
 const CONTRACTS: Record<string, Record<string, { address: string; name: string }[]>> = {
