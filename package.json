@@ -6,7 +6,8 @@
     "dev": "next dev -p 3336",
     "build": "opennextjs-cloudflare build",
     "deploy": "opennextjs-cloudflare build && wrangler deploy",
-    "start": "next start -p 3336"
+    "start": "next start -p 3336",
+    "typecheck": "node_modules/tsgo/bin/tsc --noEmit --incremental false"
   },
   "dependencies": {
     "next": "^15.0.0",
@@ -17,7 +18,8 @@
     "@opennextjs/cloudflare": "^1.17.3",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
-    "typescript": "^5.7.0",
+    "tsgo": "npm:typescript@7.0.2",
+    "typescript": "6.0.3",
     "wrangler": "^4.77.0"
   }
 }
